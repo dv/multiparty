@@ -12,10 +12,25 @@ You can add multiple values, corresponding to multiple <input> statements:
 @multiparty = Multiparty.new
 @multiparty[:name] = "David Verhasselt"
 @multiparty[:state] = "awesome"
+@multiparty[:avatar] = {:filename => "avatar.jpg", :content => "...jpegdata..."}
 
 # Retrieve the header and body like this:
 @multiparty.header
+# Content-Type: multipart/form-data; boundary=multiparty-boundary-1342
 @multiparty.body
+# --multiparty-boundary-1342
+# Content-Disposition: form-data; name="name"
+#
+# David Verhasselt
+# --multiparty-boundary-1342
+# Content-Disposition: form-data; name="state"
+# 
+# awesome
+# --multiparty-boundary-1342
+# Content-Disposition: form-data; name="avatar"; filename="avatar.jpg"
+#
+# ...jpegdata...
+# --multiparty-boundary-1342--
 ```
 
 Installation
