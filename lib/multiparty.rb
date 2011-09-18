@@ -1,4 +1,5 @@
 require "mime/types"
+require "tempfile"
 
 class Multiparty
   attr_accessor :boundary
