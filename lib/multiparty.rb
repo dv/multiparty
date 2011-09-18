@@ -2,7 +2,9 @@
 # without files:
 # application/x-www-form-urlencoded  
 # with files:
-# multipart/form-data  
+# multipart/form-data
+
+require "mime/types"
 
 class Multiparty
   attr_accessor :boundary
@@ -41,14 +43,24 @@ class Multiparty
 
   def parse_part(name, value)
     content_disposition = "form-data"
-    if value.kind_of? Hash
+    case value
+    when Hash
       content_disposition = value[:content_disposition] if value[:content_disposition]
       content_type = value[:content_type]
       filename = value[:filename]
       encoding = value[:encoding]
       body_part = value[:content]
+    when File, Tempfile
+      content_type = "application/octet-stream"
+      filename = File.split(value.path).last
+      body_part = value.read
     else
       body_part = value
+    end
+    
+    if filename
+      content_type ||= MIME::Types.of(filename).first.to_s || "application/octet-stream"
+      encoding ||= "binary"
     end
 
     head_part = "Content-Disposition: #{content_disposition}; name=\"#{name}\""
@@ -60,13 +72,6 @@ class Multiparty
     "#{head_part}\r\n#{body_part}\r\n--#{@boundary}"
   end
 
-  # Actionable methods
-  # If value is a hash, it's a file
-  #  add_part("avatar", {:filename => "avatar.jpg", :content => "..."})
-  # If value is a string
-  #   take it from facevalue
-  # If value is an array, it is 
-  #   
   def add_part(index, value)
     parts[index] = value
   end

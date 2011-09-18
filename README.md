@@ -28,9 +28,38 @@ You can add multiple values, corresponding to multiple <input> statements:
 # awesome
 # --multiparty-boundary-1342
 # Content-Disposition: form-data; name="avatar"; filename="avatar.jpg"
+# Content-Type: application/octet-stream
+# Content-Transfer-Encoding: binary
 #
 # ...jpegdata...
 # --multiparty-boundary-1342--
+```
+
+You can also add files:
+
+```ruby
+@multiparty[:your_avatar] => File.open("foo.txt")
+```
+
+You can specify an optional content-type. If you don't, Multiparty will try and detect the correct MIME-type based on the filename.
+```ruby
+@multiparty[:your_avatar] => {:filename => "foo.jpg", :content_type => "text/plain", :content => File.read("foo.txt")}
+# -> Content-Type: text/plain
+@multiparty[:your_avatar] => {:filename => "foo.jpg", content => "not really jpeg")}
+# -> Content-Type: image/jpeg
+@multiparty[:your_avatar] => File.open("foo.jpg")
+# -> Content-Type: image/jpeg
+```
+
+Files and Tempfiles are interchangable in Multiparty:
+```ruby
+tempfile = Tempfile.new("foo")
+tempfile.write("Hello World!")
+tempfile.rewind
+
+@multiparty[:message] => tempfile
+# is the same as
+@multiparty[:message] => File.open(tempfile.path)
 ```
 
 Installation

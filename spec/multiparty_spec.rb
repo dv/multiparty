@@ -43,16 +43,38 @@ describe "multiparty" do
       @multiparty['submit-name'] = "Larry"
       @multiparty['files'] = {:filename => "file1.txt", :content_type => "text/plain", :content => "... contents of file1.txt ..."}
 
-      @multiparty.body.should == '--AaB03x
+      @multiparty.body.gsub("\r\n", "\n").should == '--AaB03x
 Content-Disposition: form-data; name="submit-name"
 
 Larry
 --AaB03x
 Content-Disposition: form-data; name="files"; filename="file1.txt"
 Content-Type: text/plain
+Content-Transfer-Encoding: binary
 
 ... contents of file1.txt ...
---AaB03x--'.gsub("\n", "\r\n")
+--AaB03x--'
+    end
+
+    it "should accept a File" do
+      begin
+        @tempfile = Tempfile.new("foo.txt")
+        @tempfile.write("Hi world!")
+        @tempfile.rewind
+        name = File.split(@tempfile.path).last
+
+        @multiparty[:bar] = @tempfile
+        @multiparty.body.gsub("\r\n", "\n").should == '--my-boundary
+Content-Disposition: form-data; name="bar"; filename="' + name + '"
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: binary
+
+Hi world!
+--my-boundary--'
+      ensure
+        @tempfile.close
+        @tempfile.unlink
+      end
     end
   end    
 end
