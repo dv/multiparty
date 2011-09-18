@@ -1,9 +1,3 @@
-# http://www.w3.org/TR/html4/interact/forms.html#h-17.13
-# without files:
-# application/x-www-form-urlencoded  
-# with files:
-# multipart/form-data
-
 require "mime/types"
 
 class Multiparty
