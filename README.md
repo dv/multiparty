@@ -67,7 +67,7 @@ tempfile.rewind
 @multiparty[:message] => File.open(tempfile.path)
 ```
 
-Multipart has the ```to_s``` method aliased to ```body``` so you can use it as a ```String```:
+Multiparty has the ```to_s``` method aliased to ```body``` so you can use it as a ```String```:
 
 ```
 puts "Hello World! My multipart body: #{@multiparty}"
