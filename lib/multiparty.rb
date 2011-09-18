@@ -34,6 +34,7 @@ class Multiparty
 
     result << "--"
   end
+  alias_method :to_s, :body
 
   def parse_part(name, value)
     content_disposition = "form-data"
@@ -70,5 +71,12 @@ class Multiparty
     parts[index] = value
   end
   alias_method :[]=, :add_part
+
+  def add_parts(parts)
+    parts.each do |index, value|
+      add_part(index, value)
+    end
+  end
+  alias_method :<<, :add_parts
 
 end

@@ -38,6 +38,22 @@ describe "multiparty" do
       @multiparty[:key] = {:filename => "hello.jpg", :content => ""}
     end
 
+    it "should have a decent #to_s method" do
+      @multiparty[:key] = :value
+      @multiparty.body.should == "#{@multiparty}"
+    end
+
+    it "should be able to add multiple parts at once" do
+      multiparty1 = Multiparty.new("my-boundary")
+      multiparty2 = Multiparty.new("my-boundary")
+
+      multiparty1 << {:key1 => :value1, :key2 => :value2}
+      multiparty2[:key1] = :value1
+      multiparty2[:key2] = :value2
+
+      multiparty1.body.should == multiparty2.body
+    end
+
     it "should return a correctly formed multipart response" do
       @multiparty.boundary = "AaB03x"
       @multiparty['submit-name'] = "Larry"

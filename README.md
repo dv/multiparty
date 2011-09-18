@@ -12,6 +12,9 @@ You can add multiple values, corresponding to multiple <input> statements:
 @multiparty = Multiparty.new
 @multiparty[:name] = "David Verhasselt"
 @multiparty[:state] = "awesome"
+# or in one statement:
+@multiparty << {:name => "David Verhasselt", :state => "awesome"}
+
 @multiparty[:avatar] = {:filename => "avatar.jpg", :content => "...jpegdata..."}
 
 # Retrieve the header and body like this:
@@ -62,6 +65,12 @@ tempfile.rewind
 @multiparty[:message] => tempfile
 # is the same as
 @multiparty[:message] => File.open(tempfile.path)
+```
+
+Multipart has the ```to_s``` method aliased to ```body``` so you can use it as a ```String```:
+
+```
+puts "Hello World! My multipart body: #{@multiparty}"
 ```
 
 Installation
