@@ -42,6 +42,7 @@ You can also add files:
 ```
 
 You can specify an optional content-type. If you don't, Multiparty will try and detect the correct MIME-type based on the filename.
+
 ```ruby
 @multiparty[:your_avatar] => {:filename => "foo.jpg", :content_type => "text/plain", :content => File.read("foo.txt")}
 # -> Content-Type: text/plain
@@ -52,6 +53,7 @@ You can specify an optional content-type. If you don't, Multiparty will try and 
 ```
 
 Files and Tempfiles are interchangable in Multiparty:
+
 ```ruby
 tempfile = Tempfile.new("foo")
 tempfile.write("Hello World!")
