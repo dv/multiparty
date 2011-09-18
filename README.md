@@ -7,6 +7,7 @@ Usage
 -----
 
 You can add multiple values, corresponding to multiple <input> statements:
+
 ```ruby
 @multiparty = Multiparty.new
 @multiparty[:name] = "David Verhasselt"
@@ -27,6 +28,11 @@ Testing
 
     $ bundle install
     $ rake spec
+
+Todo
+----
+
+* Nested multiparts ("multipart/mixed") not yet supported
 
 Author
 ------
