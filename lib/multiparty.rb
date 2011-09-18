@@ -24,7 +24,11 @@ class Multiparty
   end
 
   def header
-    "Content-Type: #{@content_type}; boundary=#{@boundary}\r\n"
+    "Content-Type: #{header_value}\r\n"
+  end
+
+  def header_value
+    "#{@content_type}; boundary=#{@boundary}"  
   end
 
   def body

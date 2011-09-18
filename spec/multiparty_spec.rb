@@ -31,6 +31,7 @@ describe "multiparty" do
 
     it "should return a correct header" do
       @multiparty.header.should == "Content-Type: multipart/form-data; boundary=my-boundary\r\n"
+      @multiparty.header.should == "Content-Type: #{@multiparty.header_value}\r\n"
     end
 
     it "should be able to set-index a key-value pair" do
