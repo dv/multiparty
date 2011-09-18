@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'multiparty'
-  s.version     = '0.1.0'
+  s.version     = '0.2.0'
   s.summary     = 'Easily generate a multipart/form-data header and body.'
   s.authors     = ['David Verhasselt']
   s.email       = 'david@crowdway.com'
