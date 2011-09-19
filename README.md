@@ -69,15 +69,15 @@ multiparty[:message] => File.open(tempfile.path)
 
 Multiparty has the ```to_s``` method aliased to ```body``` so you can use it as a ```String```:
 
-```
+```ruby
 puts "Hello World! My multipart body: #{multiparty}"
 ```
 
 If the API you're interface with only supports :key => :value headers, use ```header_value```:
 
-```
+```ruby
 headers["Content-Type"] = multiparty.header_value
-
+```
 
 Installation
 ------------
