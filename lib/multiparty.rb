@@ -54,6 +54,8 @@ class Multiparty
       content_type = "application/octet-stream"
       filename = File.split(value.path).last
       body_part = value.read
+    when Array
+      return value.map { |v| parse_part("#{name}[]", v) }.join "\r\n"
     else
       body_part = value
     end

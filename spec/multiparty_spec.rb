@@ -109,5 +109,24 @@ Hi world!
       @multiparty[:array] << 4
       @multiparty[:array].should == [1, 2, 3, 4]
     end
+
+    it "should follow conventions for arrays" do
+      @multiparty.boundary = "AaB03x"
+      @multiparty[:array] = [1, 2, 3]
+
+      @multiparty.body.gsub("\r\n", "\n").should == '--AaB03x
+Content-Disposition: form-data; name="array[]"
+
+1
+--AaB03x
+Content-Disposition: form-data; name="array[]"
+
+2
+--AaB03x
+Content-Disposition: form-data; name="array[]"
+
+3
+--AaB03x--'
+    end
   end    
 end
