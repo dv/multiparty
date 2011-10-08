@@ -88,6 +88,7 @@ multiparty[:items] => [1, 2, 3]
 ```
 
 Using the parts accessor you can easily modify parts:
+
 ```ruby
 multiparty[:items] => [1, 2, 3]
 multiparty[:items] << 4
