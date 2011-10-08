@@ -49,7 +49,7 @@ You can specify an optional content-type. If you don't, Multiparty will try and 
 ```ruby
 multiparty[:your_avatar] => {:filename => "foo.jpg", :content_type => "text/plain", :content => File.read("foo.txt")}
 # -> Content-Type: text/plain
-multiparty[:your_avatar] => {:filename => "foo.jpg", content => "not really jpeg")}
+multiparty[:your_avatar] => {:filename => "foo.jpg", :content => "not really jpeg")}
 # -> Content-Type: image/jpeg
 multiparty[:your_avatar] => File.open("foo.jpg")
 # -> Content-Type: image/jpeg
