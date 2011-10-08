@@ -39,6 +39,11 @@ describe "multiparty" do
       @multiparty[:key] = {:filename => "hello.jpg", :content => ""}
     end
 
+    it "should be possible to get the key-value pair" do
+      @multiparty[:key] = :value
+      @multiparty[:key].should == :value
+    end
+
     it "should have a decent #to_s method" do
       @multiparty[:key] = :value
       @multiparty.body.should == "#{@multiparty}"
@@ -92,6 +97,17 @@ Hi world!
         @tempfile.close
         @tempfile.unlink
       end
+    end
+
+    it "should accept an array" do
+      @multiparty[:array] = [1, 2, 3]
+      @multiparty[:array].should == [1, 2, 3]
+    end
+
+    it "should be possible to add an element to an added array" do
+      @multiparty[:array] = [1, 2, 3]
+      @multiparty[:array] << 4
+      @multiparty[:array].should == [1, 2, 3, 4]
     end
   end    
 end

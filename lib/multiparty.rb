@@ -72,6 +72,11 @@ class Multiparty
     "#{head_part}\r\n#{body_part}\r\n--#{@boundary}"
   end
 
+  def get_part(index)
+    parts[index]
+  end
+  alias_method :[], :get_part
+
   def add_part(index, value)
     parts[index] = value
   end
