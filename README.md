@@ -41,17 +41,17 @@ multiparty.body
 You can also add files:
 
 ```ruby
-multiparty[:your_avatar] => File.open("foo.txt")
+multiparty[:your_avatar] = File.open("foo.txt")
 ```
 
 You can specify an optional content-type. If you don't, Multiparty will try and detect the correct MIME-type based on the filename.
 
 ```ruby
-multiparty[:your_avatar] => {:filename => "foo.jpg", :content_type => "text/plain", :content => File.read("foo.txt")}
+multiparty[:your_avatar] = {:filename => "foo.jpg", :content_type => "text/plain", :content => File.read("foo.txt")}
 # -> Content-Type: text/plain
-multiparty[:your_avatar] => {:filename => "foo.jpg", :content => "not really jpeg")}
+multiparty[:your_avatar] = {:filename => "foo.jpg", :content => "not really jpeg")}
 # -> Content-Type: image/jpeg
-multiparty[:your_avatar] => File.open("foo.jpg")
+multiparty[:your_avatar] = File.open("foo.jpg")
 # -> Content-Type: image/jpeg
 ```
 
@@ -62,15 +62,15 @@ tempfile = Tempfile.new("foo")
 tempfile.write("Hello World!")
 tempfile.rewind
 
-multiparty[:message] => tempfile
+multiparty[:message] = tempfile
 # is the same as
-multiparty[:message] => File.open(tempfile.path)
+multiparty[:message] = File.open(tempfile.path)
 ```
 
 Arrays are handled in the conventional way using "array[]" as name:
 
 ```ruby
-multiparty[:items] => [1, 2, 3]
+multiparty[:items] = [1, 2, 3]
 
 # --AaB03x
 # Content-Disposition: form-data; name="items[]"
