@@ -67,6 +67,34 @@ multiparty[:message] => tempfile
 multiparty[:message] => File.open(tempfile.path)
 ```
 
+Arrays are handled in the conventional way using "array[]" as name:
+
+```ruby
+multiparty[:items] => [1, 2, 3]
+
+# --AaB03x
+# Content-Disposition: form-data; name="items[]"
+# 
+# 1
+# --AaB03x
+# Content-Disposition: form-data; name="items[]"
+# 
+# 2
+# --AaB03x
+# Content-Disposition: form-data; name="items[]"
+# 
+# 3
+# --AaB03x--
+```
+
+Using the parts accessor you can easily modify parts:
+```ruby
+multiparty[:items] => [1, 2, 3]
+multiparty[:items] << 4
+
+# multiparty[:items] == [1, 2, 3, 4]
+```
+
 Multiparty has the ```to_s``` method aliased to ```body``` so you can use it as a ```String```:
 
 ```ruby
